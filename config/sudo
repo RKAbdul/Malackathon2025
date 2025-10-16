@@ -1,0 +1,34 @@
+[Unit]
+Description=Malackathon Dash (Gunicorn via python -m)
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/malackathon
+ExecStart=/home/ubuntu/malackathon/malaweb/bin/python -m gunicorn app:server -b 0.0.0.0:443 \
+          --certfile /certs/malackathon/fullchain.crt \
+          --keyfile  /certs/malackathon/malackathon.app.key \
+          --workers 2 --threads 4 --timeout 120 --keep-alive 30 --preload
+Restart=on-failure
+Environment="PYTHONUNBUFFERED=1"
+
+[Install]
+WantedBy=multi-user.target[Unit]
+Description=Malackathon Dash (Gunicorn TLS)
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/malackathon
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/home/ubuntu/malackathon/malaweb/bin/gunicorn app:server -c /home/ubuntu/malackathon/config/gunicorn.conf.py
+Restart=on-failure
+RestartSec=5
+# Hardening (optional but good)
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

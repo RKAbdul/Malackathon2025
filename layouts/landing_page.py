@@ -1,0 +1,168 @@
+"""
+Landing page layout for the Malackathon dashboard
+Beautiful, modern design in Spanish
+"""
+
+import dash_bootstrap_components as dbc
+from dash import html, dcc
+
+def create_landing_layout():
+    """
+    Creates a beautiful landing page with hero section,
+    features, and navigation to dashboard
+    """
+    
+    # Hero Section
+    hero = dbc.Container([
+        dbc.Row([
+            dbc.Col([
+                html.Div([
+                    html.H1([
+                        html.I(className="bi bi-heart-pulse-fill me-3", style={"color": "#e74c3c"}),
+                        "Observatorio de Salud Mental"
+                    ], className="display-3 fw-bold mb-4 text-center landing-title"),
+                    html.P(
+                        "Plataforma de análisis avanzado para la investigación en salud mental. "
+                        "Explora patrones, tendencias y datos demográficos basados en ingresos hospitalarios.",
+                        className="lead text-center mb-5 text-muted landing-subtitle"
+                    ),
+                    html.Div([
+                        dbc.Button(
+                            [
+                                html.I(className="bi bi-graph-up-arrow me-2"),
+                                "Acceder al Dashboard"
+                            ],
+                            href="/dashboard",
+                            color="primary",
+                            size="lg",
+                            className="me-3 px-5 py-3 shadow-lg landing-btn-primary"
+                        ),
+                        dbc.Button(
+                            [
+                                html.I(className="bi bi-info-circle me-2"),
+                                "Más Información"
+                            ],
+                            color="outline-secondary",
+                            size="lg",
+                            className="px-5 py-3 landing-btn-secondary",
+                            id="info-btn"
+                        ),
+                    ], className="d-flex justify-content-center flex-wrap gap-3")
+                ], className="hero-content py-5")
+            ], lg=12)
+        ], className="min-vh-50 align-items-center")
+    ], fluid=True, className="hero-section")
+    
+    # Features Section
+    features = dbc.Container([
+        html.H2("Características Principales", className="text-center mb-5 fw-bold"),
+        dbc.Row([
+            dbc.Col([
+                dbc.Card([
+                    dbc.CardBody([
+                        html.Div([
+                            html.I(className="bi bi-clipboard-data display-4 mb-3", style={"color": "#3498db"}),
+                        ], className="text-center"),
+                        html.H4("Análisis Demográfico", className="card-title text-center mb-3"),
+                        html.P(
+                            "Visualiza distribuciones por sexo, edad y región. "
+                            "Identifica patrones demográficos en pacientes de salud mental.",
+                            className="card-text text-center text-muted"
+                        )
+                    ])
+                ], className="h-100 shadow-sm feature-card")
+            ], lg=4, md=6, className="mb-4"),
+            
+            dbc.Col([
+                dbc.Card([
+                    dbc.CardBody([
+                        html.Div([
+                            html.I(className="bi bi-hospital display-4 mb-3", style={"color": "#2ecc71"}),
+                        ], className="text-center"),
+                        html.H4("Ingresos Hospitalarios", className="card-title text-center mb-3"),
+                        html.P(
+                            "Analiza tendencias temporales, estancias medias y servicios. "
+                            "Seguimiento de costes y utilización de recursos.",
+                            className="card-text text-center text-muted"
+                        )
+                    ])
+                ], className="h-100 shadow-sm feature-card")
+            ], lg=4, md=6, className="mb-4"),
+            
+            dbc.Col([
+                dbc.Card([
+                    dbc.CardBody([
+                        html.Div([
+                            html.I(className="bi bi-diagram-3 display-4 mb-3", style={"color": "#9b59b6"}),
+                        ], className="text-center"),
+                        html.H4("Patrones Diagnósticos", className="card-title text-center mb-3"),
+                        html.P(
+                            "Explora diagnósticos principales, comorbilidades y "
+                            "procedimientos asociados. Análisis de co-ocurrencia.",
+                            className="card-text text-center text-muted"
+                        )
+                    ])
+                ], className="h-100 shadow-sm feature-card")
+            ], lg=4, md=6, className="mb-4"),
+        ])
+    ], fluid=True, className="features-section py-5")
+    
+    # Stats Section
+    stats = dbc.Container([
+        dbc.Row([
+            dbc.Col([
+                html.Div([
+                    html.I(className="bi bi-people-fill display-4 mb-2", style={"color": "#e74c3c"}),
+                    html.H2("Miles", className="fw-bold mb-0"),
+                    html.P("de Pacientes", className="text-muted")
+                ], className="text-center stat-item")
+            ], lg=3, md=6, className="mb-4"),
+            
+            dbc.Col([
+                html.Div([
+                    html.I(className="bi bi-clipboard2-pulse-fill display-4 mb-2", style={"color": "#3498db"}),
+                    html.H2("Cientos", className="fw-bold mb-0"),
+                    html.P("de Ingresos", className="text-muted")
+                ], className="text-center stat-item")
+            ], lg=3, md=6, className="mb-4"),
+            
+            dbc.Col([
+                html.Div([
+                    html.I(className="bi bi-bar-chart-fill display-4 mb-2", style={"color": "#2ecc71"}),
+                    html.H2("Análisis", className="fw-bold mb-0"),
+                    html.P("en Tiempo Real", className="text-muted")
+                ], className="text-center stat-item")
+            ], lg=3, md=6, className="mb-4"),
+            
+            dbc.Col([
+                html.Div([
+                    html.I(className="bi bi-shield-check display-4 mb-2", style={"color": "#f39c12"}),
+                    html.H2("Seguro", className="fw-bold mb-0"),
+                    html.P("y Confidencial", className="text-muted")
+                ], className="text-center stat-item")
+            ], lg=3, md=6, className="mb-4"),
+        ])
+    ], fluid=True, className="stats-section py-5 bg-light")
+    
+    # Footer
+    footer = dbc.Container([
+        dbc.Row([
+            dbc.Col([
+                html.Hr(className="my-4"),
+                html.P([
+                    html.I(className="bi bi-trophy-fill me-2", style={"color": "#f39c12"}),
+                    "II Malackathon 2025 · Proyecto de Salud Mental"
+                ], className="text-center text-muted mb-0")
+            ])
+        ])
+    ], fluid=True, className="footer-section py-4")
+    
+    # Complete Layout
+    layout = html.Div([
+        hero,
+        features,
+        stats,
+        footer
+    ], className="landing-page")
+    
+    return layout

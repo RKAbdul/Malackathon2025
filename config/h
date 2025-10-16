@@ -1,0 +1,21 @@
+[Install]
+WantedBy=multi-user.target
+
+
+[Unit]
+Description=Malackathon Dash (Gunicorn via python -m)
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/malackathon
+ExecStart=/home/ubuntu/malackathon/malaweb/bin/python -m gunicorn app:server -b 0.0.0.0:443 \
+          --certfile /home/ubuntu/malackathon/certs/fullchain.crt \
+          --keyfile  /home/ubuntu/malackathon/certs/malackathon.app.key \
+          --workers 10 --threads 20 --timeout 120 --keep-alive 30
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=on-failure
+Environment="PYTHONUNBUFFERED=1"
+
+[Install]
+WantedBy=multi-user.target
