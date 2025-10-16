@@ -117,7 +117,7 @@ def create_overview_layout():
                 className="w-100 mt-2"
             ),
         ])
-    ], className="shadow-sm mb-4 sticky-top", style={"top": "1rem"})
+    ], className="shadow-sm mb-4 sticky-top filters-sidebar")
     
     # KPI Cards Row
     kpis = dbc.Row([
@@ -257,9 +257,29 @@ def create_overview_layout():
         ]),
     ])
     
+    # Page Header - Centered
+    page_header = dbc.Container([
+        dbc.Row([
+            dbc.Col([
+                html.H1(
+                    "Observatorio de Salud Mental",
+                    className=" fw-bold mb-3",
+                    style={"color": "#2c3e50", "fontSize": "2.5rem"}
+                ),
+                html.P(
+                    "Plataforma de análisis avanzado para la investigación en salud mental. "
+                    "Explora patrones, tendencias y datos demográficos basados en ingresos hospitalarios.",
+                    className="text-muted lead mb-4",
+                    style={"maxWidth": "900px"}
+                )
+            ])
+        ])
+    ], fluid=True, className="py-4")
+    
     # Main Layout Structure
     layout = html.Div([
         navbar,
+        page_header,
         dbc.Container([
             dbc.Row([
                 # Filters Sidebar (Left)

@@ -137,67 +137,6 @@ malackathon/
 
 ---
 
-## 🔄 Application Flow
-
-### 1️⃣ **Application Startup**
-
-```python
-# app.py
-1. Import dependencies (Dash, layouts, callbacks, db_utils)
-2. Initialize Dash app with Bootstrap theme
-3. Set viewport meta tags (mobile support, zoom disabled)
-4. Initialize Oracle database connection pool
-5. Initialize Flask cache (currently SimpleCache)
-6. Define main layout with URL routing (dcc.Location)
-7. Register all dashboard callbacks
-8. Start Flask server (port 8050)
-```
-
-### 2️⃣ **Page Routing** (Client-Side)
-
-```python
-# app.py - display_page() callback
-URL pathname → Check route:
-  - "/" → create_landing_layout()
-  - "/dashboard" → create_overview_layout()
-```
-
-### 3️⃣ **Landing Page** (Static)
-
-```
-User visits "/" → Landing page displayed:
-  - Hero section with gradient background
-  - Feature cards (Análisis, Visualización, Reportes)
-  - Statistics section
-  - Call-to-action button → Navigate to /dashboard
-```
-
-### 4️⃣ **Dashboard Page** (Interactive)
-
-```
-User visits "/dashboard" → Dashboard layout created:
-  ┌─────────────────────────────────────────┐
-  │  Navbar (title, buttons)                │
-  ├─────────────┬───────────────────────────┤
-  │  Filters    │  KPI Cards (5)            │
-  │  - Dates    │  - Total Pacientes        │
-  │  - Sex      │  - Total Ingresos         │
-  │  - Community│  - Estancia Media         │
-  │  - Service  │  - Edad Media             │
-  │  - Reset    │  - Coste Total            │
-  │  - Apply    ├───────────────────────────┤
-  │             │  Charts (6)               │
-  │             │  - Admissions over time   │
-  │             │  - Sex distribution       │
-  │             │  - Age distribution       │
-  │             │  - Top diagnoses          │
-  │             │  - Service utilization    │
-  │             │  - Geographic distribution│
-  └─────────────┴───────────────────────────┘
-```
-
----
-
 ## 📊 Data Flow
 
 ### **Complete Data Pipeline**
@@ -281,20 +220,9 @@ User visits "/dashboard" → Dashboard layout created:
 └──────────────────────────────────────────────────────────────┘
 ```
 
-### **Filter Auto-Trigger**
-
-Previously filters used `State` (manual apply button required). Now they use `Input`:
-
-```python
-# Every filter change automatically triggers data reload
-Input("date-range-filter", "start_date")   # ✅ Auto-trigger
-Input("sex-filter", "value")               # ✅ Auto-trigger
-Input("community-filter", "value")         # ✅ Auto-trigger
-```
-
 ---
 
-## 🧩 Component Breakdown
+## 🧩 Functionalities and Layout Breakdown
 
 ### **1. Database Layer** (`config/db_config.py`)
 

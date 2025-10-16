@@ -991,7 +991,6 @@ def get_cohort_journey(min_admissions=2, date_start=None, date_end=None):
     GROUP BY i.ID_PACIENTE
     HAVING COUNT(*) >= :min_adm
     ORDER BY admission_count DESC
-    FETCH FIRST 100 ROWS ONLY
     """
     
     logger.info("Querying cohort journey")

@@ -24,11 +24,12 @@ def create_landing_layout():
                     html.H1([
                         html.I(className="bi bi-heart-pulse-fill me-3", style={"color": "#e74c3c"}),
                         "Observatorio de Salud Mental"
-                    ], className="display-3 fw-bold mb-4 text-center landing-title"),
+                    ], className="display-3 fw-bold mb-4 text-center landing-title", style={"color": "white"}),
                     html.P(
                         "Plataforma de análisis avanzado para la investigación en salud mental. "
                         "Explora patrones, tendencias y datos demográficos basados en ingresos hospitalarios.",
-                        className="lead text-center mb-5 text-muted landing-subtitle"
+                        className="lead text-center mb-5 landing-subtitle",
+                        style={"color": "rgba(255, 255, 255, 0.95)"}
                     ),
                     html.Div([
                         dbc.Button(
@@ -37,25 +38,16 @@ def create_landing_layout():
                                 "Acceder al Dashboard"
                             ],
                             href="/dashboard",
-                            color="primary",
+                            color="light",
                             size="lg",
-                            className="me-3 px-5 py-3 shadow-lg landing-btn-primary"
-                        ),
-                        dbc.Button(
-                            [
-                                html.I(className="bi bi-info-circle me-2"),
-                                "Más Información"
-                            ],
-                            color="outline-secondary",
-                            size="lg",
-                            className="px-5 py-3 landing-btn-secondary",
-                            id="info-btn"
-                        ),
-                    ], className="d-flex justify-content-center flex-wrap gap-3")
-                ], className="hero-content py-5")
-            ], lg=12)
-        ], className="min-vh-50 align-items-center")
-    ], fluid=True, className="hero-section")
+                            className="px-5 py-3 shadow-lg landing-btn-primary",
+                            style={"fontWeight": "600"}
+                        )
+                    ], className="d-flex justify-content-center")
+                ], className="hero-content text-center", style={"maxWidth": "900px", "margin": "0 auto"})
+            ], lg=12, className="d-flex justify-content-center align-items-center")
+        ], className="h-100", style={"minHeight": "70vh"})
+    ], fluid=True, className="hero-section", style={"minHeight": "70vh", "display": "flex", "alignItems": "center"})
     
     # Features Section
     features = dbc.Container([
@@ -149,24 +141,25 @@ def create_landing_layout():
                 ], className="h-100 shadow-sm feature-card")
             ], lg=4, md=6, className="mb-4"),
             
-            dbc.Col([
-                dbc.Card([
-                    dbc.CardBody([
-                        html.Div([
-                            html.I(className="bi bi-graph-up-arrow display-4 mb-3", style={"color": "#f39c12"}),
-                        ], className="text-center"),
-                        html.H5("Analítica Predictiva", className="card-title text-center mb-3"),
-                        html.P(
-                            "Tendencias temporales, proyecciones y detección de patrones estacionales.",
-                            className="card-text text-center text-muted small"
-                        ),
-                        html.Div([
-                            dbc.Button("Explorar", href="/predictive-analytics", color="warning", size="sm", className="mt-2")
-                        ], className="text-center")
-                    ])
-                ], className="h-100 shadow-sm feature-card")
-            ], lg=4, md=6, className="mb-4"),
-        ])
+            # REMOVED: Analítica Predictiva card
+            # dbc.Col([
+            #     dbc.Card([
+            #         dbc.CardBody([
+            #             html.Div([
+            #                 html.I(className="bi bi-graph-up-arrow display-4 mb-3", style={"color": "#f39c12"}),
+            #             ], className="text-center"),
+            #             html.H5("Analítica Predictiva", className="card-title text-center mb-3"),
+            #             html.P(
+            #                 "Tendencias temporales, proyecciones y detección de patrones estacionales.",
+            #                 className="card-text text-center text-muted small"
+            #             ),
+            #             html.Div([
+            #                 dbc.Button("Explorar", href="/predictive-analytics", color="warning", size="sm", className="mt-2")
+            #             ], className="text-center")
+            #         ])
+            #     ], className="h-100 shadow-sm feature-card")
+            # ], lg=4, md=6, className="mb-4"),
+        ], justify="center")
     ], fluid=True, className="features-section py-5")
     
     # Stats Section

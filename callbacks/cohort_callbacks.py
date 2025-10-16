@@ -203,28 +203,40 @@ def register_cohort_callbacks(app):
             return fig
         
         readmit = data['readmission']
+        threshold = data.get('filters', {}).get('threshold', 30)
         
         with_readmit = readmit.get('patients_with_readmission', 0)
         total = readmit.get('total_patients', 0)
         without_readmit = total - with_readmit
         
         fig = go.Figure(data=[go.Pie(
-            labels=['Con Reingreso', 'Sin Reingreso'],
+            labels=[
+                f'Con Reingreso Rápido (< {threshold} días)', 
+                f'Sin Reingreso Rápido (≥ {threshold} días o sin reingreso)'
+            ],
             values=[with_readmit, without_readmit],
             marker_colors=['#e74c3c', '#2ecc71'],
             hole=0.4
         )])
         
         fig.update_traces(
-            hovertemplate='<b>%{label}</b><br>Pacientes: %{value:,}<br>%{percent}<extra></extra>'
+            hovertemplate='<b>%{label}</b><br>Pacientes: %{value:,}<br>%{percent}<extra></extra>',
+            textposition='inside',
+            textinfo='percent+value'
         )
         
         fig.update_layout(
             template=template,
-            margin=dict(t=30, b=30, l=30, r=30),
-            height=400,
+            margin=dict(t=50, b=80, l=30, r=30),
+            height=450,
             showlegend=True,
-            legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5)
+            legend=dict(orientation="h", yanchor="bottom", y=-0.25, xanchor="center", x=0.5),
+            annotations=[dict(
+                text=f'Umbral: {threshold} días<br>Total: {total:,} pacientes',
+                x=0.5, y=0.5,
+                font_size=12,
+                showarrow=False
+            )]
         )
         
         return fig

@@ -41,7 +41,21 @@ def create_cohort_layout():
             html.P(
                 "Seguimiento de trayectorias de pacientes, análisis de reingresos y patrones de cohortes",
                 className="text-muted lead"
-            )
+            ),
+            dbc.Alert([
+                html.H6([html.I(className="bi bi-info-circle-fill me-2"), "Nota sobre las métricas"], className="alert-heading mb-2"),
+                html.P([
+                    html.Strong("Pacientes Recurrentes: "), 
+                    "Cuenta pacientes con 2 o más ingresos en total durante todo el período (sin límite de tiempo entre ingresos). ",
+                    "Ejemplo: un paciente que ingresó en Enero 2023 y luego en Diciembre 2024 cuenta como recurrente."
+                ], className="mb-2"),
+                html.P([
+                    html.Strong("Tasa de Reingreso Rápido: "), 
+                    "Cuenta pacientes que volvieron en MENOS del umbral de días (por defecto 30) después del alta. ",
+                    "Ejemplo: si el umbral es 30 días, solo cuenta pacientes que regresaron en menos de un mes. ",
+                    html.Strong("Esta métrica mide la efectividad del tratamiento a corto plazo.")
+                ], className="mb-0")
+            ], color="info", className="mb-3")
         ])
     ], className="mb-4")
     
@@ -103,7 +117,7 @@ def create_cohort_layout():
                 "Resetear Filtros"
             ], id="cohort-reset-btn", color="secondary", outline=True, className="w-100"),
         ])
-    ], className="shadow-sm mb-4 sticky-top", style={"top": "1rem"})
+    ], className="shadow-sm mb-4 sticky-top filters-sidebar")
     
     # Data Store
     data_store = dcc.Store(id="cohort-data-store")
@@ -114,11 +128,11 @@ def create_cohort_layout():
     # Key Metrics Row
     metrics = dbc.Row([
         dbc.Col(create_stat_card(
-            "Tasa de Reingreso",
+            "Tasa de Reingreso Rápido",
             "cohort-readmission-rate",
             "bi-arrow-repeat",
             "#e74c3c",
-            "Dentro del umbral"
+            f"Volvieron en < umbral días"
         ), xl=3, lg=6, md=6, sm=12, className="mb-4"),
         
         dbc.Col(create_stat_card(
@@ -126,23 +140,23 @@ def create_cohort_layout():
             "cohort-avg-days-readmit",
             "bi-calendar-range",
             "#f39c12",
-            "Tiempo medio"
+            "Tiempo medio entre alta y reingreso"
         ), xl=3, lg=6, md=6, sm=12, className="mb-4"),
         
         dbc.Col(create_stat_card(
-            "Pacientes Cohorte",
+            "Pacientes Recurrentes",
             "cohort-total-patients",
             "bi-people",
             "#3498db",
-            "Con múltiples ingresos"
+            "Con 2+ ingresos totales"
         ), xl=3, lg=6, md=6, sm=12, className="mb-4"),
         
         dbc.Col(create_stat_card(
-            "Ingresos Totales",
+            "Suma de Todos sus Ingresos",
             "cohort-total-admissions",
             "bi-clipboard-plus",
             "#2ecc71",
-            "En el período"
+            "Total de ingresos acumulados"
         ), xl=3, lg=6, md=6, sm=12, className="mb-4"),
     ])
     
@@ -154,9 +168,13 @@ def create_cohort_layout():
                 dbc.Card([
                     dbc.CardHeader([
                         html.I(className="bi bi-graph-up-arrow me-2"),
-                        html.Strong("Trayectoria de Pacientes en Cohorte")
+                        html.Strong("Trayectoria de Pacientes Recurrentes (2+ ingresos)")
                     ], className="bg-primary text-white"),
                     dbc.CardBody([
+                        html.P([
+                            "Muestra pacientes con múltiples ingresos a lo largo del tiempo. ",
+                            "Cada punto es un paciente. Tamaño = días totales hospitalizados."
+                        ], className="text-muted small mb-3"),
                         dcc.Graph(id="cohort-journey-chart", config={'displayModeBar': False})
                     ])
                 ], className="chart-card shadow-sm")
@@ -166,9 +184,14 @@ def create_cohort_layout():
                 dbc.Card([
                     dbc.CardHeader([
                         html.I(className="bi bi-pie-chart me-2"),
-                        html.Strong("Distribución de Reingresos")
+                        html.Strong("Reingresos Rápidos (< Umbral Días)")
                     ], className="bg-primary text-white"),
                     dbc.CardBody([
+                        html.P([
+                            "Pacientes que volvieron en menos del umbral de días después del alta. ",
+                            html.Strong("Esta es una métrica DIFERENTE"), 
+                            " a 'Pacientes Recurrentes' que mide ingresos totales sin límite de tiempo."
+                        ], className="text-muted small mb-3"),
                         dcc.Graph(id="cohort-readmission-dist", config={'displayModeBar': False})
                     ])
                 ], className="chart-card shadow-sm")

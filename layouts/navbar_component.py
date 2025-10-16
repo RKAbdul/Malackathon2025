@@ -48,14 +48,15 @@ def create_navbar(current_page="home", page_title=None, page_icon=None):
             "icon": "bi-clipboard2-pulse",
             "href": "/clinical-insights",
             "description": "Insights clínicos"
-        },
-        {
-            "id": "predictive",
-            "label": "Predictiva",
-            "icon": "bi-graph-up",
-            "href": "/predictive-analytics",
-            "description": "Analítica predictiva"
         }
+        # REMOVED: Predictive analytics temporarily disabled
+        # {
+        #     "id": "predictive",
+        #     "label": "Predictiva",
+        #     "icon": "bi-graph-up",
+        #     "href": "/predictive-analytics",
+        #     "description": "Analítica predictiva"
+        # }
     ]
     
     # Default page configurations
@@ -79,12 +80,13 @@ def create_navbar(current_page="home", page_title=None, page_icon=None):
             "title": "Análisis Clínico",
             "icon": "bi-clipboard2-pulse",
             "color": "#27ae60"
-        },
-        "predictive": {
-            "title": "Analítica Predictiva",
-            "icon": "bi-graph-up",
-            "color": "#f39c12"
         }
+        # REMOVED: Predictive analytics config
+        # "predictive": {
+        #     "title": "Analítica Predictiva",
+        #     "icon": "bi-graph-up",
+        #     "color": "#f39c12"
+        # }
     }
     
     # Get page configuration
@@ -117,34 +119,17 @@ def create_navbar(current_page="home", page_title=None, page_icon=None):
                 )
             )
     
-    # Create navbar brand with icon and title
+    # Create navbar brand without icon, just title
     navbar_brand = html.A(
-        dbc.Row([
-            dbc.Col(
-                html.I(
-                    className=display_icon,
-                    style={
-                        "fontSize": "1.8rem",
-                        "color": icon_color,
-                        "transition": "transform 0.3s ease"
-                    },
-                    id="navbar-icon"
-                ),
-                width="auto",
-                className="d-flex align-items-center"
-            ),
-            dbc.Col(
-                html.Span(
-                    display_title,
-                    className="fw-bold d-none d-md-inline",
-                    style={
-                        "fontSize": "1.2rem",
-                        "letterSpacing": "0.5px"
-                    }
-                ),
-                className="ms-2"
-            ),
-        ], align="center", className="g-0 flex-nowrap"),
+        html.Span(
+            display_title,
+            className="fw-bold",
+            style={
+                "fontSize": "1.2rem",
+                "letterSpacing": "0.5px",
+                "color": "white"
+            }
+        ),
         href="/",
         style={
             "textDecoration": "none",

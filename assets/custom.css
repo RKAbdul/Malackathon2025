@@ -42,20 +42,16 @@ h1, h2, h3 {
 .hero-section {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 5rem 0;
+    padding: 0;
     min-height: 70vh;
-    display: flex;
-    align-items: center;
-}
-
-.hero-content {
-    animation: fadeInUp 0.8s ease-out;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .landing-title {
     color: white !important;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    animation: fadeInDown 0.6s ease-out;
 }
 
 .landing-subtitle {
@@ -64,6 +60,22 @@ h1, h2, h3 {
     max-width: 800px;
     margin: 0 auto 2rem;
     line-height: 1.8;
+}
+
+/* Apply animations only to landing page elements */
+.landing-page .hero-content {
+    animation: fadeInUp 0.8s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.landing-page .landing-title {
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.landing-page .landing-subtitle {
     animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
@@ -71,15 +83,24 @@ h1, h2, h3 {
     background: white !important;
     color: #667eea !important;
     border: none !important;
-    font-weight: 600;
+    font-weight: 600 !important;
     transition: var(--transition);
+}
+
+.landing-page .landing-btn-primary {
     animation: fadeInUp 1s ease-out 0.4s both;
 }
 
 .landing-btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
     background: #f8f9fa !important;
+    color: #667eea !important;
+}
+
+.landing-btn-primary:active,
+.landing-btn-primary:focus {
+    color: #667eea !important;
 }
 
 .landing-btn-secondary {
@@ -88,6 +109,9 @@ h1, h2, h3 {
     background: transparent !important;
     font-weight: 600;
     transition: var(--transition);
+}
+
+.landing-page .landing-btn-secondary {
     animation: fadeInUp 1s ease-out 0.5s both;
 }
 
@@ -316,6 +340,17 @@ h1, h2, h3 {
     z-index: 1020;
 }
 
+/* Fix filter sidebar positioning to prevent overlap with navbar */
+.filters-sidebar.sticky-top {
+    top: 80px !important; /* Add space below navbar */
+    z-index: 1010 !important; /* Below navbar but above content */
+}
+
+/* Ensure navbar always stays above filters */
+.navbar.sticky-top {
+    z-index: 1030 !important;
+}
+
 /* Dropdowns */
 .Select-control,
 .dropdown {
@@ -360,6 +395,7 @@ h1, h2, h3 {
 /* Navbar */
 .navbar {
     box-shadow: var(--shadow);
+    z-index: 1030 !important; /* Ensure navbar is always on top */
 }
 
 .navbar-brand {

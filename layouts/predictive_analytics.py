@@ -88,7 +88,7 @@ def create_predictive_layout():
                 "Exportar Datos"
             ], id="predictive-export-btn", color="success", outline=True, className="w-100"),
         ])
-    ], className="shadow-sm mb-4 sticky-top", style={"top": "1rem"})
+    ], className="shadow-sm mb-4 sticky-top filters-sidebar")
     
     # Data Store
     data_store = dcc.Store(id="predictive-data-store")

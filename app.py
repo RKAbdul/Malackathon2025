@@ -12,13 +12,13 @@ from layouts.landing_page import create_landing_layout
 from layouts.overview_layout import create_overview_layout
 from layouts.cohort_analysis import create_cohort_layout
 from layouts.clinical_insights import create_clinical_layout
-from layouts.predictive_analytics import create_predictive_layout
+# from layouts.predictive_analytics import create_predictive_layout  # REMOVED
 
 # Import callbacks
 from callbacks.overview_callbacks import register_overview_callbacks
 from callbacks.cohort_callbacks import register_cohort_callbacks
 from callbacks.clinical_callbacks import register_clinical_callbacks
-from callbacks.predictive_callbacks import register_predictive_callbacks
+# from callbacks.predictive_callbacks import register_predictive_callbacks  # REMOVED
 
 # Import database utilities
 from data.db_utils import init_cache
@@ -106,9 +106,9 @@ def display_page(pathname):
     elif pathname == '/clinical-insights':
         logger.info("Navigating to clinical insights page")
         return create_clinical_layout()
-    elif pathname == '/predictive-analytics':
-        logger.info("Navigating to predictive analytics page")
-        return create_predictive_layout()
+    # elif pathname == '/predictive-analytics':  # REMOVED
+    #     logger.info("Navigating to predictive analytics page")
+    #     return create_predictive_layout()
     else:  # Default to landing page
         logger.info("Navigating to landing page")
         return create_landing_layout()
@@ -120,7 +120,7 @@ def display_page(pathname):
 register_overview_callbacks(app)
 register_cohort_callbacks(app)
 register_clinical_callbacks(app)
-register_predictive_callbacks(app)
+# register_predictive_callbacks(app)  # REMOVED
 
 logger.info("All callbacks registered successfully")
 

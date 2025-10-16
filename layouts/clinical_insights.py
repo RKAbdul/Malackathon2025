@@ -83,7 +83,7 @@ def create_clinical_layout():
                 "Resetear"
             ], id="clinical-reset-btn", color="secondary", outline=True, className="w-100"),
         ])
-    ], className="shadow-sm mb-4 sticky-top", style={"top": "1rem"})
+    ], className="shadow-sm mb-4 sticky-top filters-sidebar")
     
     # Data Store
     data_store = dcc.Store(id="clinical-data-store")
