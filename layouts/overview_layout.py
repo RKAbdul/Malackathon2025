@@ -5,6 +5,7 @@ Shows KPIs, demographics, admissions trends, and diagnosis patterns
 
 import dash_bootstrap_components as dbc
 from dash import html, dcc
+from layouts.navbar_component import create_navbar
 
 def create_kpi_card(title, value_id, icon, color="#3498db"):
     """Creates a KPI card with icon, title, and dynamic value"""
@@ -48,34 +49,8 @@ def create_overview_layout():
     - Multiple analytical charts
     """
     
-    # Navbar
-    navbar = dbc.Navbar(
-        dbc.Container([
-            dbc.NavbarBrand([
-                dbc.Button(
-                    html.I(className="bi bi-arrow-left"),
-                    href="/",
-                    color="link",
-                    className="text-white me-2"
-                ),
-                html.I(className="bi bi-heart-pulse me-2"),
-                "Dashboard de Salud Mental"
-            ], className="fw-semibold"),
-            dbc.Nav([
-                dbc.NavItem(dbc.NavLink([
-                    html.I(className="bi bi-house-fill me-2"),
-                    "Inicio"
-                ], href="/", className="text-white")),
-                dbc.NavItem(dbc.NavLink([
-                    html.I(className="bi bi-graph-up me-2"),
-                    "Resumen"
-                ], href="/dashboard", active=True, className="text-white")),
-            ], className="ms-auto align-items-center", navbar=True),
-        ], fluid=True),
-        color="dark",
-        dark=True,
-        className="mb-4 shadow-sm"
-    )
+    # Navbar - using centralized reactive component
+    navbar = create_navbar(current_page="dashboard")
     
     # Filters Sidebar/Panel
     filters = dbc.Card([

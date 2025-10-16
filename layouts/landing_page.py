@@ -5,12 +5,16 @@ Beautiful, modern design in Spanish
 
 import dash_bootstrap_components as dbc
 from dash import html, dcc
+from layouts.navbar_component import create_navbar
 
 def create_landing_layout():
     """
     Creates a beautiful landing page with hero section,
     features, and navigation to dashboard
     """
+    
+    # Navbar - using centralized reactive component
+    navbar = create_navbar(current_page="home")
     
     # Hero Section
     hero = dbc.Container([
@@ -104,6 +108,64 @@ def create_landing_layout():
                     ])
                 ], className="h-100 shadow-sm feature-card")
             ], lg=4, md=6, className="mb-4"),
+        ]),
+        
+        # Advanced Analysis Features
+        html.H3("Análisis Avanzado", className="text-center my-5 fw-bold text-primary"),
+        dbc.Row([
+            dbc.Col([
+                dbc.Card([
+                    dbc.CardBody([
+                        html.Div([
+                            html.I(className="bi bi-people-fill display-4 mb-3", style={"color": "#e74c3c"}),
+                        ], className="text-center"),
+                        html.H5("Análisis de Cohortes", className="card-title text-center mb-3"),
+                        html.P(
+                            "Seguimiento longitudinal de pacientes, análisis de reingresos y trayectorias clínicas.",
+                            className="card-text text-center text-muted small"
+                        ),
+                        html.Div([
+                            dbc.Button("Explorar", href="/cohort-analysis", color="danger", size="sm", className="mt-2")
+                        ], className="text-center")
+                    ])
+                ], className="h-100 shadow-sm feature-card")
+            ], lg=4, md=6, className="mb-4"),
+            
+            dbc.Col([
+                dbc.Card([
+                    dbc.CardBody([
+                        html.Div([
+                            html.I(className="bi bi-heart-pulse-fill display-4 mb-3", style={"color": "#16a085"}),
+                        ], className="text-center"),
+                        html.H5("Insights Clínicos", className="card-title text-center mb-3"),
+                        html.P(
+                            "Correlaciones diagnósticas, estratificación de riesgo y análisis de severidad.",
+                            className="card-text text-center text-muted small"
+                        ),
+                        html.Div([
+                            dbc.Button("Explorar", href="/clinical-insights", color="success", size="sm", className="mt-2")
+                        ], className="text-center")
+                    ])
+                ], className="h-100 shadow-sm feature-card")
+            ], lg=4, md=6, className="mb-4"),
+            
+            dbc.Col([
+                dbc.Card([
+                    dbc.CardBody([
+                        html.Div([
+                            html.I(className="bi bi-graph-up-arrow display-4 mb-3", style={"color": "#f39c12"}),
+                        ], className="text-center"),
+                        html.H5("Analítica Predictiva", className="card-title text-center mb-3"),
+                        html.P(
+                            "Tendencias temporales, proyecciones y detección de patrones estacionales.",
+                            className="card-text text-center text-muted small"
+                        ),
+                        html.Div([
+                            dbc.Button("Explorar", href="/predictive-analytics", color="warning", size="sm", className="mt-2")
+                        ], className="text-center")
+                    ])
+                ], className="h-100 shadow-sm feature-card")
+            ], lg=4, md=6, className="mb-4"),
         ])
     ], fluid=True, className="features-section py-5")
     
@@ -159,6 +221,7 @@ def create_landing_layout():
     
     # Complete Layout
     layout = html.Div([
+        navbar,
         hero,
         features,
         stats,
